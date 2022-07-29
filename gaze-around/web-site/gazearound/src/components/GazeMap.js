@@ -9,6 +9,8 @@ import L, { LatLng } from 'leaflet';
 
 import CircleButton from './base/CircleButton';
 import DefMarkerImg from '../resources/images/def-marker.png';
+import DefPinImg from '../resources/images/def-pin.png';
+import { baseUrl } from '../constants/const';
 
 const requestLocationOptions = {
     enableHighAccuracy: true,
@@ -21,9 +23,16 @@ const iconUser = new L.DivIcon({
     html: renderToStaticMarkup(
         <img className='map-marker' src={DefMarkerImg} />
     ),
-    iconAnchor: [0,42.5]
+    iconAnchor: [0, 42.5]
 });
 
+const iconTrip = new L.DivIcon({
+    className: 'map-marker-container',
+    html: renderToStaticMarkup(
+        <img className='map-marker' src={DefPinImg} />
+    ),
+    iconAnchor: [0, 0]
+});
 
 const CUR_LOC_ZOOM = 14;
 
@@ -32,9 +41,11 @@ export default class GazeMap extends React.Component {
         super(props);
 
         this.state = {
+            radius: 3500,
             userLocationAvaliable: null,
             userLocation: null,
-            userLocationLoading: false
+            userLocationLoading: false,
+            trips: []
         }
 
         this.mapRef = null;
@@ -81,6 +92,17 @@ export default class GazeMap extends React.Component {
         }
     }
 
+    getTrips() {
+        const { radius, userLocation } = this.state;
+
+
+        fetch(`${baseUrl}/Trip?radius=${radius}&lon=${userLocation.coords.longitude}&lat=${userLocation.coords.latitude}`)
+            .then(response => response.json())
+            .then(trips => {
+                this.setState({ trips: trips })
+            });
+    }
+
     onMapCreated(map) {
         this.mapRef = map && map.target;
     }
@@ -89,10 +111,9 @@ export default class GazeMap extends React.Component {
     render() {
         const {
             userLocationAvaliable,
-            userLocation
+            userLocation,
+            trips
         } = this.state;
-
-        console.log(userLocation)
 
         return (
             <div className='map-container'>
@@ -101,6 +122,9 @@ export default class GazeMap extends React.Component {
                         image={DefMarkerImg}
                         isLoading={this.state.userLocationLoading}
                         onClick={this.requestLocation.bind(this)} />
+                    <CircleButton
+                        image={DefPinImg}
+                        onClick={this.getTrips.bind(this)} />
                 </div>
                 <MapContainer
                     id="map"
@@ -119,6 +143,12 @@ export default class GazeMap extends React.Component {
                             position={new LatLng(userLocation.coords.latitude, userLocation.coords.longitude)}
                             icon={iconUser}
                         /> : null}
+                    {trips.map(x => {
+                        return <Marker
+                            position={new LatLng(x.point.lat, x.point.lon)}
+                            icon={iconTrip}
+                        />
+                    })}
                 </MapContainer>
 
             </div>

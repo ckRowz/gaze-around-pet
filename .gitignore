@@ -1,3 +1,4 @@
 ﻿**/.vs
 **/bin
 **/obj
+/gaze-around/server/GazeAround.Server/GazeAround.API/Static/Settings.json
