@@ -12,6 +12,7 @@
     "react-leaflet": "^4.0.1",
     "react-loader-spinner": "^5.1.7-beta.1",
     "react-scripts": "5.0.1",
+    "swiper": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
