@@ -1,0 +1,80 @@
+.trip-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 15px 25px;
+    background-color: var(--color-main-background);
+}
+
+.trip-card-status-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.trip-card-status-badge-outer {
+    position: absolute;
+    right: 22px;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 23px;
+    height: 23px;
+    border-radius: 100%;
+    background-color: var(--color-main-background);
+}
+
+.trip-card-status-badge-inner {
+    width: 17px;
+    height: 17px;
+    border-radius: 100%;
+    background-color: var(--color-active);
+}
+
+.trip-card-status {
+    margin-top: 10px;
+    background-color: var(--color-content-background);
+    padding: 5px 15px;
+    border-radius: 25px;
+}
+
+.trip-card-statis-text {
+    color: var(--color-font-main);
+}
+
+.trip-card-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 5%;
+    margin-top: 20px;
+}
+
+.trip-card-header{
+    margin-top: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--color-font-main);
+}
+
+.trip-card-info-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.trip-card-info-image {
+    width: 35px;
+}
+
+.trip-card-info-value {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.trip-card-body {
+    
+}
